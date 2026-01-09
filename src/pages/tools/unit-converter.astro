@@ -1,0 +1,69 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+	title="Universal Alchemist: Fast Unit Converter" 
+	description="Instant conversions for length, weight, and temperature. Private, browser-based tool for daily utility."
+>
+	<div class="max-w-3xl mx-auto">
+		<div class="mb-10 text-center">
+			<h1 class="text-3xl font-bold text-slate-900">Universal Alchemist</h1>
+			<p class="mt-2 text-slate-600 font-medium">Standardize your measurements with gremlin-fast precision.</p>
+		</div>
+
+		<div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+				<input type="number" id="input-val" placeholder="Value" class="p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" />
+				<select id="from-unit" class="p-3 border rounded-lg bg-white outline-none">
+					<optgroup label="Length">
+						<option value="m">Meters</option>
+						<option value="ft">Feet</option>
+					</optgroup>
+					<optgroup label="Temperature">
+						<option value="c">Celsius</option>
+						<option value="f">Fahrenheit</option>
+					</optgroup>
+				</select>
+				<div id="output-val" class="p-3 bg-slate-50 border rounded-lg font-bold text-indigo-600 flex items-center">Result...</div>
+			</div>
+		</div>
+
+		<article class="mt-16 prose prose-slate max-w-none border-t border-slate-100 pt-10 text-slate-600">
+			<h2 class="text-2xl font-bold text-slate-900">Comprehensive Measurement Guide</h2>
+			<p class="mt-4 leading-relaxed">
+				Accuracy in measurement is the foundation of science, trade, and engineering. Whether you are converting imperial feet to metric meters or adjusting a recipe from Celsius to Fahrenheit, the Universal Alchemist ensures your calculations remain consistent. In 2026, the digital landscape demands tools that are not only accurate but also respect user boundaries.
+			</p>
+
+			<h3 class="text-xl font-bold text-slate-900 mt-8">The Physics of Conversion</h3>
+			<p class="mt-4 leading-relaxed">
+				Every conversion logic within this drawer is based on fixed mathematical constants. For length, we utilize the international foot definition of exactly 0.3048 meters. For temperature, we apply the standard thermodynamic formulas: multiply Celsius by 1.8 and add 32 to find Fahrenheit. These calculations occur locally, meaning your browser performs the work without sending data to an external server.
+			</p>
+
+			<h3 class="text-xl font-bold text-slate-900 mt-8">Why Static Tools Win</h3>
+			<p class="mt-4 leading-relaxed">
+				The Heuheu prioritizes static delivery. By using Astro to serve this converter, we eliminate the bloat of traditional web applications. This results in faster interaction times and a better user experience, both of which are critical factors for search engine visibility and long-term financial stability.
+			</p>
+		</article>
+	</div>
+
+	<script>
+		const input = document.getElementById('input-val');
+		const from = document.getElementById('from-unit');
+		const output = document.getElementById('output-val');
+
+		const convert = () => {
+			const val = parseFloat(input.value);
+			if (isNaN(val)) return output.innerText = "Result...";
+			
+			const unit = from.value;
+			if (unit === 'm') output.innerText = (val * 3.28084).toFixed(2) + " ft";
+			if (unit === 'ft') output.innerText = (val / 3.28084).toFixed(2) + " m";
+			if (unit === 'c') output.innerText = ((val * 9/5) + 32).toFixed(2) + " °F";
+			if (unit === 'f') output.innerText = ((val - 32) * 5/9).toFixed(2) + " °C";
+		};
+
+		input.addEventListener('input', convert);
+		from.addEventListener('change', convert);
+	</script>
+</Layout>
