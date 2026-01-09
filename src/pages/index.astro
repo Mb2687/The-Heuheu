@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+	title="Free Online Tools" 
+	description="The Heuheu is a collection of fast, private, and browser-based tools for photos, documents, and development."
+>
+	<div class="py-12 text-center">
+		<h1 class="text-4xl font-extrabold text-slate-900 sm:text-6xl">
+			The Junk Drawer of <span class="text-indigo-600">Useful Things</span>
+		</h1>
+		<p class="mt-6 text-lg text-slate-600 max-w-2xl mx-auto">
+			The Heuheu is like a desk gremlin that collects the most useful tools and brings them here for everyone to use. No accounts, no emails, and no tracking: just open a tool and move on with your day.
+		</p>
+	</div>
+
+	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+		<a href="/tools/webp-converter" class="group p-6 bg-white border border-slate-200 rounded-xl shadow-sm hover:shadow-md transition-all border-b-4 border-b-indigo-500">
+			<h3 class="text-xl font-bold text-slate-900 group-hover:text-indigo-600">WebP Alchemist</h3>
+			<p class="mt-2 text-slate-600 text-sm">Convert any image to WebP format instantly in your browser to boost your own site's SEO performance.</p>
+			<div class="mt-4 text-xs font-semibold text-indigo-500 uppercase tracking-wider">Image Tool</div>
+		</a>
+
+		<div class="p-6 bg-slate-100 border border-dashed border-slate-300 rounded-xl flex items-center justify-center">
+			<span class="text-slate-400 italic text-sm">More tools arriving soon...</span>
+		</div>
+	</div>
+
+	<section class="mt-20 border-t border-slate-200 pt-10">
+		<h2 class="text-2xl font-bold text-slate-900">Why use The Heuheu?</h2>
+		<div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-8 text-slate-600">
+			<div>
+				<h4 class="font-bold text-slate-900">Privacy First</h4>
+				<p class="mt-2">Your data never leaves your computer. All processing happens locally in your browser, which means your documents and photos stay yours.</p>
+			</div>
+			<div>
+				<h4 class="font-bold text-slate-900">Zero Friction</h4>
+				<p class="mt-2">We hate logins as much as you do. The Heuheu provides instant access to utilities without forcing you to create an account or sign up for a newsletter.</p>
+			</div>
+		</div>
+	</section>
+</Layout>
