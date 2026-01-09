@@ -1,40 +1,86 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const toolCategories = [
+  {
+    name: "Image & Design",
+    tools: [
+      { name: "WebP Alchemist", desc: "Convert images to WebP", link: "/tools/webp-converter", icon: "🖼️" },
+      { name: "Aspect Ratio", desc: "Calculate perfect dimensions", link: "/tools/aspect-ratio-calculator", icon: "📐" },
+      { name: "SVG Placeholder", desc: "Instant mockup boxes", link: "/tools/svg-placeholder-maker", icon: "📦" },
+      { name: "Color Alchemist", desc: "HEX/RGB/HSL converter", link: "/tools/color-hex-alchemist", icon: "🎨" }
+    ]
+  },
+  {
+    name: "Developer Utilities",
+    tools: [
+      { name: "JSON Alchemist", desc: "Format and clean JSON", link: "/tools/json-formatter", icon: "📋" },
+      { name: "Base64 Alchemist", desc: "Encode & decode strings", link: "/tools/base64-alchemist", icon: "🔐" },
+      { name: "Unix Timestamp", desc: "Epoch time converter", link: "/tools/unix-timestamp-converter", icon: "🕒" },
+      { name: "HTML Entities", desc: "Safe code escaping", link: "/tools/html-entity-encoder", icon: "📄" },
+      { name: "QR Forge", desc: "Generate permanent QR codes", link: "/tools/qr-code-generator", icon: "📱" }
+    ]
+  },
+  {
+    name: "Text & Data",
+    tools: [
+      { name: "Case Transformer", desc: "Switch text casing instantly", link: "/tools/case-transformer", icon: "Aa" },
+      { name: "List Scrubber", desc: "Remove duplicates & sort", link: "/tools/list-scrubber", icon: "🧹" },
+      { name: "Whitespace Remover", desc: "Clean hidden clutter", link: "/tools/whitespace-remover", icon: "🚫" },
+      { name: "Lorem Ipsum", desc: "Gremlin-themed placeholder", link: "/tools/lorem-ipsum-generator", icon: "📝" },
+      { name: "Unit Alchemist", desc: "Universal measurements", link: "/tools/unit-converter", icon: "⚖️" },
+      { name: "Password Forge", desc: "Secure random keys", link: "/tools/password-forge", icon: "🛡️" }
+    ]
+  }
+];
 ---
 
 <Layout 
-	title="The Junk Drawer of Useful Tools" 
-	description="The Heuheu: A collection of fast, private, and browser-based tools for photos, documents, and data formatting."
+	title="The Heuheu: Fast, Private & Free Online Tools" 
+	description="The junk drawer of useful things. 15+ browser-based tools for developers, designers, and creators. No tracking, no accounts."
 >
-	<div class="py-16 text-center">
-		<h1 class="text-4xl font-extrabold text-slate-900 sm:text-6xl tracking-tight">
-			The Junk Drawer of <span class="text-indigo-600">Useful Things</span>
-		</h1>
-		<p class="mt-6 text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
-			The Heuheu is a helpful desk gremlin that collects the tools you actually need. No accounts, no tracking, and no wait times: everything runs directly in your browser.
-		</p>
-	</div>
+	<main class="max-w-6xl mx-auto px-4 py-12">
+		<div class="text-center mb-16">
+			<h1 class="text-5xl font-extrabold text-slate-900 tracking-tight mb-4">The Heuheu</h1>
+			<p class="text-xl text-slate-600 max-w-2xl mx-auto">
+				The Desk Gremlin's Junk Drawer of Useful Things. No accounts, no emails, and no tracking. Everything runs locally in your browser.
+			</p>
+		</div>
 
-	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-		
-		<a href="/tools/webp-converter" class="group p-8 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-lg hover:border-indigo-300 transition-all border-b-4 border-b-indigo-500">
-			<div class="text-indigo-600 mb-4 font-bold uppercase text-xs tracking-widest">Image Utility</div>
-			<h3 class="text-xl font-bold text-slate-900 group-hover:text-indigo-600">WebP Alchemist</h3>
-			<p class="mt-3 text-slate-600 text-sm leading-relaxed">Convert JPG and PNG to WebP instantly. Optimize your site performance without compromising visual quality.</p>
-		</a>
+		<div class="space-y-16">
+			{toolCategories.map(category => (
+				<section>
+					<h2 class="text-2xl font-bold text-slate-800 mb-8 flex items-center">
+						<span class="bg-indigo-600 w-2 h-8 rounded-full mr-4"></span>
+						{category.name}
+					</h2>
+					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+						{category.tools.map(tool => (
+							<a href={tool.link} class="group bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl hover:border-indigo-500 transition-all duration-300">
+								<div class="text-3xl mb-4 group-hover:scale-110 transition-transform duration-300">{tool.icon}</div>
+								<h3 class="text-lg font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">{tool.name}</h3>
+								<p class="text-slate-500 text-sm mt-1">{tool.desc}</p>
+							</a>
+						))}
+					</div>
+				</section>
+			))}
+		</div>
 
-		<a href="/tools/unit-converter" class="group p-8 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-lg hover:border-green-300 transition-all border-b-4 border-b-green-500">
-			<div class="text-green-600 mb-4 font-bold uppercase text-xs tracking-widest">Mathematics</div>
-			<h3 class="text-xl font-bold text-slate-900 group-hover:text-green-600">Universal Alchemist</h3>
-			<p class="mt-3 text-slate-600 text-sm leading-relaxed">Fast conversions for length, weight, and temperature. Precise calculations delivered through your own browser engine.</p>
-		</a>
-
-		<a href="/tools/json-formatter" class="group p-8 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-lg hover:border-amber-300 transition-all border-b-4 border-b-amber-500">
-			<div class="text-amber-600 mb-4 font-bold uppercase text-xs tracking-widest">Developer Tool</div>
-			<h3 class="text-xl font-bold text-slate-900 group-hover:text-amber-600">JSON Alchemist</h3>
-			<p class="mt-3 text-slate-600 text-sm leading-relaxed">Beautify and validate messy JSON strings. Keeps your data private by formatting everything locally.</p>
-		</a>
-
-	</div>
-
-	<section class="
+    <section class="mt-24 p-8 bg-slate-900 rounded-3xl text-white">
+      <div class="max-w-3xl">
+        <h2 class="text-3xl font-bold mb-4">Why use The Heuheu?</h2>
+        <div class="grid md:grid-cols-2 gap-8 mt-8">
+          <div>
+            <h3 class="text-indigo-400 font-bold mb-2 uppercase text-xs tracking-widest">Privacy First</h3>
+            <p class="text-slate-300 text-sm">Your data never leaves your computer. All processing happens locally in your browser.</p>
+          </div>
+          <div>
+            <h3 class="text-indigo-400 font-bold mb-2 uppercase text-xs tracking-widest">Zero Friction</h3>
+            <p class="text-slate-300 text-sm">No logins, no newsletters, and no cookies. Just the tools you need.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+	</main>
+</Layout>
