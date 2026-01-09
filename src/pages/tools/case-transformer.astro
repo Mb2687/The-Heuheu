@@ -1,0 +1,79 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+	title="Case Transformer: Uppercase, Lowercase & More" 
+	description="Instantly switch text between UPPERCASE, lowercase, Title Case, and camelCase. A fast, browser-based text utility for everyone."
+>
+	<div class="max-w-4xl mx-auto">
+		<div class="mb-8 text-center">
+			<h1 class="text-3xl font-bold text-slate-900">Case Transformer</h1>
+			<p class="mt-2 text-slate-600 font-medium text-lg">Shift your text style instantly without retyping a single letter.</p>
+		</div>
+
+		<div class="grid grid-cols-1 gap-6">
+			<textarea 
+				id="text-input" 
+				rows="8" 
+				placeholder="Paste or type your text here..." 
+				class="w-full p-4 font-sans text-base border rounded-xl shadow-sm focus:ring-2 focus:ring-indigo-500 outline-none border-slate-200 bg-white"
+			></textarea>
+			
+			<div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+				<button onclick="transform('upper')" class="bg-indigo-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-indigo-700 transition-all text-sm uppercase">UPPERCASE</button>
+				<button onclick="transform('lower')" class="bg-indigo-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-indigo-700 transition-all text-sm lowercase">lowercase</button>
+				<button onclick="transform('title')" class="bg-indigo-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-indigo-700 transition-all text-sm">Title Case</button>
+				<button onclick="transform('sentence')" class="bg-indigo-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-indigo-700 transition-all text-sm">Sentence case</button>
+				<button onclick="transform('camel')" class="bg-slate-700 text-white px-4 py-2 rounded-lg font-bold hover:bg-slate-800 transition-all text-sm font-mono">camelCase</button>
+				<button onclick="transform('snake')" class="bg-slate-700 text-white px-4 py-2 rounded-lg font-bold hover:bg-slate-800 transition-all text-sm font-mono">snake_case</button>
+				<button onclick="transform('kebab')" class="bg-slate-700 text-white px-4 py-2 rounded-lg font-bold hover:bg-slate-800 transition-all text-sm font-mono">kebab-case</button>
+				<button id="copy-btn" class="bg-emerald-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-emerald-700 transition-all text-sm">Copy Result</button>
+			</div>
+		</div>
+
+		<article class="mt-20 prose prose-slate max-w-none border-t border-slate-100 pt-12 text-slate-600">
+			<h2 class="text-2xl font-bold text-slate-900">Why Use a Case Transformer?</h2>
+			<p class="mt-4 leading-relaxed">
+				Accidentally leaving the Caps Lock on or needing to convert a list of headers into variable names (like camelCase) can be time-consuming. The Case Transformer handles these repetitive tasks in milliseconds.
+			</p>
+
+			<h3 class="text-xl font-bold text-slate-900 mt-10">Formatting Styles Explained</h3>
+			<ul class="space-y-4 mt-6">
+				<li><strong>Title Case:</strong> Capitalizes the first letter of every significant word. Ideal for blog titles and headlines.</li>
+				<li><strong>Sentence Case:</strong> Capitalizes only the first letter of each sentence, mirroring standard prose.</li>
+				<li><strong>camelCase & snake_case:</strong> Essential for software developers naming variables and database columns.</li>
+			</ul>
+
+			<h3 class="text-xl font-bold text-slate-900 mt-10">Safe and Local Processing</h3>
+			<p class="mt-4 leading-relaxed">
+				Many free online text tools store your input to build databases of user behavior. The Heuheu believes your words are yours alone. Our Case Transformer uses local browser memory to manipulate text, ensuring that sensitive documents or private drafts are never uploaded to our servers.
+			</p>
+		</article>
+	</div>
+
+	<script is:inline>
+		const input = document.getElementById('text-input');
+
+		function transform(type) {
+			let val = input.value;
+			switch(type) {
+				case 'upper': input.value = val.toUpperCase(); break;
+				case 'lower': input.value = val.toLowerCase(); break;
+				case 'sentence': input.value = val.toLowerCase().replace(/(^\s*\w|[\.\!\?]\s*\w)/g, c => c.toUpperCase()); break;
+				case 'title': input.value = val.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()); break;
+				case 'camel': input.value = val.replace(/(?:^\w|[A-Z]|\b\w)/g, (w, i) => i === 0 ? w.toLowerCase() : w.toUpperCase()).replace(/\s+/g, ''); break;
+				case 'snake': input.value = val.toLowerCase().replace(/\s+/g, '_'); break;
+				case 'kebab': input.value = val.toLowerCase().replace(/\s+/g, '-'); break;
+			}
+		}
+
+		document.getElementById('copy-btn').addEventListener('click', () => {
+			input.select();
+			document.execCommand('copy');
+			const originalText = document.getElementById('copy-btn').innerText;
+			document.getElementById('copy-btn').innerText = "Copied!";
+			setTimeout(() => { document.getElementById('copy-btn').innerText = originalText; }, 2000);
+		});
+	</script>
+</Layout>
