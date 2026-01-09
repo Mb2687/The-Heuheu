@@ -1,0 +1,104 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+	title="SVG Placeholder Maker: Instant Mockup Images" 
+	description="Generate lightweight SVG placeholder images for your web designs. Fast, customizable, and browser-based utility for developers."
+>
+	<div class="max-w-4xl mx-auto">
+		<div class="mb-8 text-center">
+			<h1 class="text-3xl font-bold text-slate-900">SVG Placeholder Alchemist</h1>
+			<p class="mt-2 text-slate-600 font-medium text-lg">Summon lightweight vector boxes for your digital wireframes.</p>
+		</div>
+
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+			<div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+				<div class="grid grid-cols-2 gap-4">
+					<div>
+						<label class="block text-xs font-bold text-slate-500 uppercase mb-1">Width</label>
+						<input type="number" id="svg-w" value="800" class="w-full p-2 border rounded focus:ring-2 focus:ring-indigo-500 outline-none border-slate-200" />
+					</div>
+					<div>
+						<label class="block text-xs font-bold text-slate-500 uppercase mb-1">Height</label>
+						<input type="number" id="svg-h" value="450" class="w-full p-2 border rounded focus:ring-2 focus:ring-indigo-500 outline-none border-slate-200" />
+					</div>
+				</div>
+				<div>
+					<label class="block text-xs font-bold text-slate-500 uppercase mb-1">Label Text</label>
+					<input type="text" id="svg-text" placeholder="800 x 450" class="w-full p-2 border rounded focus:ring-2 focus:ring-indigo-500 outline-none border-slate-200" />
+				</div>
+				<div class="grid grid-cols-2 gap-4">
+					<div>
+						<label class="block text-xs font-bold text-slate-500 uppercase mb-1">BG Color</label>
+						<input type="color" id="svg-bg" value="#e2e8f0" class="w-full h-10 p-1 border rounded bg-white" />
+					</div>
+					<div>
+						<label class="block text-xs font-bold text-slate-500 uppercase mb-1">Text Color</label>
+						<input type="color" id="svg-fg" value="#64748b" class="w-full h-10 p-1 border rounded bg-white" />
+					</div>
+				</div>
+			</div>
+
+			<div class="space-y-4">
+				<div id="svg-preview-container" class="bg-slate-100 p-4 rounded-2xl border border-slate-200 flex items-center justify-center min-h-[250px]">
+					</div>
+				<button id="copy-svg-btn" class="w-full bg-indigo-600 text-white py-3 rounded-lg font-bold hover:bg-indigo-700 transition-all shadow-md">Copy SVG Code</button>
+			</div>
+		</div>
+
+		<article class="mt-20 prose prose-slate max-w-none border-t border-slate-100 pt-12 text-slate-600">
+			<h2 class="text-2xl font-bold text-slate-900">Why Use SVG Placeholders?</h2>
+			<p class="mt-4 leading-relaxed">
+				Standard image placeholders (like JPEGs or PNGs) add unnecessary weight to your development environment and require external assets. SVG (Scalable Vector Graphics) placeholders are text-based, meaning they can be embedded directly into your HTML. They are infinitely scalable, incredibly small in file size, and load instantly.
+			</p>
+
+			<h3 class="text-xl font-bold text-slate-900 mt-10">Optimizing the "Gremlin" Workflow</h3>
+			<p class="mt-4 leading-relaxed">
+				By using the SVG Placeholder Alchemist, you can wireframe entire websites without needing to design or download a single image file. This tool allows you to customize the color and label of each box to represent different content blocks, such as "Hero Image," "Ad Space," or "Product Shot".
+			</p>
+
+			<h3 class="text-xl font-bold text-slate-900 mt-10">Private and Permanent</h3>
+			<p class="mt-4 leading-relaxed">
+				Unlike "placeholder image services" that hotlink to external servers, The Heuheu provides you with the raw SVG code to host locally. This prevents broken images if the external service goes down and ensures your design drafts remain private and secure within your own development stack.
+			</p>
+		</article>
+	</div>
+
+	<script is:inline>
+		const w = document.getElementById('svg-w');
+		const h = document.getElementById('svg-h');
+		const txt = document.getElementById('svg-text');
+		const bg = document.getElementById('svg-bg');
+		const fg = document.getElementById('svg-fg');
+		const container = document.getElementById('svg-preview-container');
+		const copyBtn = document.getElementById('copy-svg-btn');
+
+		function generateSVG() {
+			const width = w.value || 800;
+			const height = h.value || 450;
+			const label = txt.value || `${width} x ${height}`;
+			const bgColor = bg.value;
+			const fgColor = fg.value;
+
+			const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
+				<rect width="100%" height="100%" fill="${bgColor}"/>
+				<text x="50%" y="50%" font-family="sans-serif" font-size="24" font-weight="bold" fill="${fgColor}" text-anchor="middle" dominant-baseline="middle">${label}</text>
+			</svg>`;
+			
+			container.innerHTML = svg;
+			return svg;
+		}
+
+		[w, h, txt, bg, fg].forEach(el => el.addEventListener('input', generateSVG));
+		
+		copyBtn.addEventListener('click', () => {
+			const code = generateSVG();
+			navigator.clipboard.writeText(code);
+			copyBtn.innerText = "Copied to Clipboard!";
+			setTimeout(() => copyBtn.innerText = "Copy SVG Code", 2000);
+		});
+
+		generateSVG();
+	</script>
+</Layout>
