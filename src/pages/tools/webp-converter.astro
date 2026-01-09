@@ -1,0 +1,85 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+	title="WebP Alchemist: Instant Image Converter" 
+	description="Convert JPG, PNG, and GIF to WebP instantly. Fast, private, browser-based image optimization for better SEO."
+>
+	<div class="max-w-3xl mx-auto">
+		<div class="mb-10 text-center">
+			<h1 class="text-3xl font-bold text-slate-900">WebP Alchemist</h1>
+			<p class="mt-2 text-slate-600 font-medium">Transmute your heavy images into lightweight WebP gold.</p>
+		</div>
+
+		<div class="bg-white p-8 rounded-2xl border-2 border-dashed border-indigo-200 hover:border-indigo-400 transition-colors text-center" id="drop-zone">
+			<input type="file" id="file-input" accept="image/*" class="hidden" />
+			<label for="file-input" class="cursor-pointer">
+				<div class="bg-indigo-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+					</svg>
+				</div>
+				<p class="text-lg font-semibold text-slate-900">Drop your image here</p>
+				<p class="text-sm text-slate-500 mt-1">or click to browse your files</p>
+			</label>
+			<div id="preview-container" class="mt-6 hidden">
+				<canvas id="conversion-canvas" class="hidden"></canvas>
+				<div class="flex flex-col items-center">
+					<p class="text-sm font-medium text-green-600" id="status-message">Conversion complete!</p>
+					<a id="download-link" class="mt-4 bg-indigo-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-indigo-700 transition-colors">Download WebP</a>
+				</div>
+			</div>
+		</div>
+
+		<article class="mt-16 prose prose-slate max-w-none border-t border-slate-100 pt-10">
+			<h2 class="text-2xl font-bold text-slate-900">Why use the WebP Alchemist?</h2>
+			<p class="text-slate-600 mt-4 leading-relaxed">
+				Optimizing images is one of the most effective ways to improve your website performance. The WebP format, developed by Google, provides superior lossless and lossy compression for images on the web. By using the WebP Alchemist, you can reduce file sizes by up to 30 percent compared to traditional formats like JPG and PNG without sacrificing visual quality.
+			</p>
+
+			<h3 class="text-xl font-bold text-slate-900 mt-8">Technical Privacy and Performance</h3>
+			<p class="text-slate-600 mt-4 leading-relaxed">
+				Unlike other online converters, the WebP Alchemist does not upload your files to a server. Your photos remain on your computer at all times. The conversion logic is executed locally within your browser using the Canvas API. This approach ensures maximum privacy and allows for near-instant processing speeds, even for larger file sizes.
+			</p>
+
+			<h3 class="text-xl font-bold text-slate-900 mt-8">Boost Your Core Web Vitals</h3>
+			<p class="text-slate-600 mt-4 leading-relaxed">
+				Search engines prioritize fast-loading websites. Converting your assets to WebP helps you achieve better scores in Largest Contentful Paint (LCP) and overall page load metrics. This tool is a permanent resident of the Heuheu junk drawer, designed to help developers and content creators optimize their workflows effortlessly.
+			</p>
+		</article>
+	</div>
+
+	<script>
+		const fileInput = document.getElementById('file-input');
+		const dropZone = document.getElementById('drop-zone');
+		const previewContainer = document.getElementById('preview-container');
+		const downloadLink = document.getElementById('download-link');
+		const canvas = document.getElementById('conversion-canvas');
+		const ctx = canvas.getContext('2d');
+
+		fileInput.addEventListener('change', handleFile);
+
+		function handleFile(e) {
+			const file = e.target.files[0];
+			if (!file) return;
+
+			const reader = new FileReader();
+			reader.onload = (event) => {
+				const img = new Image();
+				img.onload = () => {
+					canvas.width = img.width;
+					canvas.height = img.height;
+					ctx.drawImage(img, 0, 0);
+					
+					const webpData = canvas.toDataURL('image/webp', 0.8);
+					downloadLink.href = webpData;
+					downloadLink.download = `${file.name.split('.')[0]}.webp`;
+					previewContainer.classList.remove('hidden');
+				};
+				img.src = event.target.result;
+			};
+			reader.readAsDataURL(file);
+		}
+	</script>
+</Layout>
