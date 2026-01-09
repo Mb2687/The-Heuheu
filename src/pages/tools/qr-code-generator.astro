@@ -1,0 +1,93 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+	title="QR Code Generator: Private & Permanent Codes" 
+	description="Create high-quality QR codes for URLs or text instantly. No accounts, no expiration, and 100% private browser-based generation."
+>
+	<div class="max-w-4xl mx-auto">
+		<div class="mb-8 text-center">
+			<h1 class="text-3xl font-bold text-slate-900">QR Forge</h1>
+			<p class="mt-2 text-slate-600 font-medium text-lg">Generate permanent, track-free QR codes instantly.</p>
+		</div>
+
+		<div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm max-w-2xl mx-auto">
+			<div class="space-y-6 text-center">
+				<div>
+					<label class="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide text-left">Target URL or Text</label>
+					<input 
+						type="text" 
+						id="qr-input" 
+						placeholder="https://theheuheu.com" 
+						class="w-full p-4 border rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none border-slate-200"
+					/>
+				</div>
+
+				<div class="flex justify-center p-6 bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200 min-h-[250px] items-center">
+					<div id="qrcode" class="bg-white p-4 rounded shadow-sm"></div>
+				</div>
+
+				<div class="flex gap-4">
+					<button id="download-btn" class="flex-1 bg-indigo-600 text-white py-3 rounded-lg font-bold hover:bg-indigo-700 transition-all shadow-md">
+						Download PNG
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<article class="mt-20 prose prose-slate max-w-none border-t border-slate-100 pt-12 text-slate-600">
+			<h2 class="text-2xl font-bold text-slate-900">The Problem with Commercial QR Generators</h2>
+			<p class="mt-4 leading-relaxed">
+				Many free QR generators use "dynamic" links, meaning the QR code points to their server first before redirecting to your destination. This allows them to track users, but it also means your QR code will stop working if their service goes down or if they decide to charge you a subscription fee.
+			</p>
+
+			<h3 class="text-xl font-bold text-slate-900 mt-10">Permanent and Private</h3>
+			<p class="mt-4 leading-relaxed">
+				The QR Forge at The Heuheu creates "Static" QR codes. The data is encoded directly into the pattern of the square. This means your code will work forever, it cannot be tracked by us, and it requires no internet connection once the page is loaded.
+			</p>
+            
+            
+
+			<h3 class="text-xl font-bold text-slate-900 mt-10">Usage Tips</h3>
+			<ul class="list-disc pl-5 space-y-3 mt-4">
+				<li><strong>Contrast:</strong> Always ensure your QR code is printed in a dark color on a light background for maximum scannability.</li>
+				<li><strong>Testing:</strong> Always scan your generated code with a physical device before printing it on marketing materials.</li>
+				<li><strong>Simplicity:</strong> The less text you encode, the simpler the pattern will be, making it easier for older phones to read.</li>
+			</ul>
+		</article>
+	</div>
+
+	<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+	<script is:inline>
+		const input = document.getElementById('qr-input');
+		const container = document.getElementById('qrcode');
+		const downloadBtn = document.getElementById('download-btn');
+
+		const qrcode = new QRCode(container, {
+			text: "https://theheuheu.com",
+			width: 200,
+			height: 200,
+			colorDark : "#0f172a",
+			colorLight : "#ffffff",
+			correctLevel : QRCode.CorrectLevel.H
+		});
+
+		input.addEventListener('input', (e) => {
+			qrcode.clear();
+			if(e.target.value) {
+				qrcode.makeCode(e.target.value);
+			}
+		});
+
+		downloadBtn.addEventListener('click', () => {
+			const img = container.querySelector('img');
+			if (img) {
+				const link = document.createElement('a');
+				link.download = 'heuheu-qr-code.png';
+				link.href = img.src;
+				link.click();
+			}
+		});
+	</script>
+</Layout>
