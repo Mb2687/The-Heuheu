@@ -1,0 +1,105 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+	title="List Scrubber: Remove Duplicates & Sort Text" 
+	description="Clean your lists instantly. Remove duplicate entries, sort alphabetically, and strip whitespace from your text data."
+>
+	<div class="max-w-4xl mx-auto">
+		<div class="mb-8 text-center">
+			<h1 class="text-3xl font-bold text-slate-900">List Scrubber</h1>
+			<p class="mt-2 text-slate-600 font-medium text-lg">Cleanse your data sets of duplicates and disorder.</p>
+		</div>
+
+		<div class="grid grid-cols-1 gap-6">
+			<textarea 
+				id="list-input" 
+				rows="10" 
+				placeholder="Paste your list here (one item per line)..." 
+				class="w-full p-4 font-mono text-sm border rounded-xl shadow-sm focus:ring-2 focus:ring-indigo-500 outline-none border-slate-200 bg-white"
+			></textarea>
+			
+			<div class="flex flex-wrap gap-3">
+				<button id="dedupe-btn" class="bg-indigo-600 text-white px-5 py-2 rounded-lg font-bold hover:bg-indigo-700 transition-all shadow-sm">Remove Duplicates</button>
+				<button id="sort-btn" class="bg-slate-700 text-white px-5 py-2 rounded-lg font-bold hover:bg-slate-800 transition-all shadow-sm">Sort A-Z</button>
+				<button id="reverse-btn" class="bg-slate-700 text-white px-5 py-2 rounded-lg font-bold hover:bg-slate-800 transition-all shadow-sm">Reverse</button>
+				<button id="trim-btn" class="bg-slate-700 text-white px-5 py-2 rounded-lg font-bold hover:bg-slate-800 transition-all shadow-sm">Trim Whitespace</button>
+				<button id="clear-btn" class="ml-auto bg-red-50 text-red-600 px-5 py-2 rounded-lg font-bold hover:bg-red-100 transition-all">Clear</button>
+			</div>
+
+			<div class="bg-indigo-50 p-4 rounded-xl flex justify-between items-center border border-indigo-100">
+				<span class="text-sm text-indigo-900 font-medium">Item Count: <span id="item-count">0</span></span>
+				<button id="copy-btn" class="text-xs bg-white text-indigo-600 px-3 py-1 rounded border border-indigo-200 font-bold hover:bg-indigo-600 hover:text-white transition-all">Copy Result</button>
+			</div>
+		</div>
+
+		<article class="mt-20 prose prose-slate max-w-none border-t border-slate-100 pt-12 text-slate-600">
+			<h2 class="text-2xl font-bold text-slate-900">Mastering Your Data Lists</h2>
+			<p class="mt-4 leading-relaxed">
+				Whether you are managing an email list, organizing keywords for an SEO campaign, or cleaning up a CSV export, duplicate data is an ROI killer. The List Scrubber provides a zero-friction way to sanitize your data without opening complex spreadsheet software.
+			</p>
+
+			<h3 class="text-xl font-bold text-slate-900 mt-10">Advanced Data Cleaning Features</h3>
+			<ul class="space-y-4 mt-6">
+				<li><strong>Deduplication:</strong> Instantly scans every line and removes identical entries, ensuring your list is unique.</li>
+				<li><strong>Alphabetical Sorting:</strong> Organizes your data from A to Z, making it easier to scan and categorize.</li>
+				<li><strong>Whitespace Stripping:</strong> Removes accidental spaces at the beginning or end of lines that often cause errors in database imports.</li>
+			</ul>
+
+			<h3 class="text-xl font-bold text-slate-900 mt-10">Privacy First: No Server Uploads</h3>
+			<p class="mt-4 leading-relaxed">
+				Data lists often contain sensitive information like names or email addresses. Many online "deduping" tools require you to upload this data to their servers, creating a major privacy risk. The Heuheu processes your list entirely within your local browser's memory. Your data never leaves your device.
+			</p>
+		</article>
+	</div>
+
+	<script is:inline>
+		const input = document.getElementById('list-input');
+		const countDisplay = document.getElementById('item-count');
+
+		function getList() {
+			return input.value.split('\n').filter(line => line.length > 0);
+		}
+
+		function updateList(newList) {
+			input.value = newList.join('\n');
+			countDisplay.innerText = newList.length;
+		}
+
+		input.addEventListener('input', () => {
+			countDisplay.innerText = getList().length;
+		});
+
+		document.getElementById('dedupe-btn').addEventListener('click', () => {
+			const unique = [...new Set(getList())];
+			updateList(unique);
+		});
+
+		document.getElementById('sort-btn').addEventListener('click', () => {
+			const sorted = getList().sort((a, b) => a.localeCompare(b));
+			updateList(sorted);
+		});
+
+		document.getElementById('reverse-btn').addEventListener('click', () => {
+			const reversed = getList().reverse();
+			updateList(reversed);
+		});
+
+		document.getElementById('trim-btn').addEventListener('click', () => {
+			const trimmed = getList().map(item => item.trim());
+			updateList(trimmed);
+		});
+
+		document.getElementById('clear-btn').addEventListener('click', () => {
+			input.value = '';
+			countDisplay.innerText = '0';
+		});
+
+		document.getElementById('copy-btn').addEventListener('click', () => {
+			input.select();
+			document.execCommand('copy');
+			alert('List copied to clipboard!');
+		});
+	</script>
+</Layout>
