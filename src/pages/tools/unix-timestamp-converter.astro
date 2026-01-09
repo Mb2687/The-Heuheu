@@ -1,0 +1,84 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+	title="Unix Timestamp Converter: Human Date to Epoch" 
+	description="Convert Unix timestamps to human-readable dates and back. A fast, local, and private developer utility."
+>
+	<div class="max-w-4xl mx-auto">
+		<div class="mb-8 text-center">
+			<h1 class="text-3xl font-bold text-slate-900">Unix Timestamp Alchemist</h1>
+			<p class="mt-2 text-slate-600 font-medium text-lg">Synchronize human time with the epoch clock.</p>
+		</div>
+
+		<div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm space-y-8">
+			<div class="bg-indigo-50 p-6 rounded-xl border border-indigo-100 text-center">
+				<p class="text-xs font-bold text-indigo-600 uppercase tracking-widest mb-2">Current Unix Timestamp</p>
+				<div id="current-timestamp" class="text-3xl font-mono font-bold text-indigo-900">Loading...</div>
+			</div>
+
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+				<div class="space-y-4">
+					<h2 class="text-sm font-bold text-slate-700 uppercase tracking-widest">Timestamp to Date</h2>
+					<input type="number" id="ts-input" placeholder="e.g. 1736449642" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none border-slate-200 font-mono" />
+					<div id="ts-result" class="p-3 bg-slate-50 rounded-lg text-sm text-slate-600 min-h-[40px] border border-slate-100 flex items-center italic">Result will appear here...</div>
+				</div>
+
+				<div class="space-y-4">
+					<h2 class="text-sm font-bold text-slate-700 uppercase tracking-widest">Date to Timestamp</h2>
+					<input type="datetime-local" id="date-input" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none border-slate-200 font-mono" />
+					<div id="date-result" class="p-3 bg-slate-50 rounded-lg text-sm text-slate-600 min-h-[40px] border border-slate-100 flex items-center italic text-indigo-600 font-bold">Result will appear here...</div>
+				</div>
+			</div>
+		</div>
+
+		<article class="mt-20 prose prose-slate max-w-none border-t border-slate-100 pt-12 text-slate-600">
+			<h2 class="text-2xl font-bold text-slate-900">What is a Unix Timestamp?</h2>
+			<p class="mt-4 leading-relaxed">
+				The Unix timestamp (also known as Epoch time) is a system for describing a point in time. It is the number of seconds that have elapsed since the Unix Epoch, which is January 1st, 1970, at 00:00:00 UTC. Because it is a single integer, it is used globally in computing to handle time-stamping, database records, and log files without the complexity of time zones or formatting strings.
+			</p>
+
+			<h3 class="text-xl font-bold text-slate-900 mt-10">Why Developers Use This Alchemist</h3>
+			<p class="mt-4 leading-relaxed">
+				Debugging API responses or checking server logs often requires immediate translation of a 10-digit number into a readable date. While many online converters exist, they often track your location or store the timestamps you search for. The Heuheu's converter runs entirely via JavaScript in your browser, ensuring that your data processing stays private and secure.
+			</p>
+
+			<h3 class="text-xl font-bold text-slate-900 mt-10">Handling Time Zones</h3>
+			<p class="mt-4 leading-relaxed">
+				By default, our tool displays results in your local browser time and UTC. This is critical for developers who need to coordinate events across different global server regions.
+			</p>
+		</article>
+	</div>
+
+	<script is:inline>
+		const currentTsDisp = document.getElementById('current-timestamp');
+		const tsInput = document.getElementById('ts-input');
+		const tsResult = document.getElementById('ts-result');
+		const dateInput = document.getElementById('date-input');
+		const dateResult = document.getElementById('date-result');
+
+		// Live Clock
+		setInterval(() => {
+			currentTsDisp.innerText = Math.floor(Date.now() / 1000);
+		}, 1000);
+
+		// Timestamp to Human
+		tsInput.addEventListener('input', () => {
+			const val = parseInt(tsInput.value);
+			if (isNaN(val)) {
+				tsResult.innerText = "Invalid timestamp";
+				return;
+			}
+			const date = new Date(val * 1000);
+			tsResult.innerHTML = `<strong>Local:</strong> ${date.toLocaleString()}<br><strong>UTC:</strong> ${date.toUTCString()}`;
+		});
+
+		// Date to Timestamp
+		dateInput.addEventListener('input', () => {
+			const date = new Date(dateInput.value);
+			const ts = Math.floor(date.getTime() / 1000);
+			dateResult.innerText = isNaN(ts) ? "Invalid date" : ts;
+		});
+	</script>
+</Layout>
