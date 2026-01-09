@@ -3,84 +3,89 @@ import Layout from '../layouts/Layout.astro';
 
 const toolCategories = [
   {
-    name: "Image & Design",
+    name: "Design & Media",
     tools: [
-      { name: "WebP Alchemist", desc: "Convert images to WebP", link: "/tools/webp-converter", icon: "🖼️" },
-      { name: "Aspect Ratio", desc: "Calculate perfect dimensions", link: "/tools/aspect-ratio-calculator", icon: "📐" },
-      { name: "SVG Placeholder", desc: "Instant mockup boxes", link: "/tools/svg-placeholder-maker", icon: "📦" },
-      { name: "Color Alchemist", desc: "HEX/RGB/HSL converter", link: "/tools/color-hex-alchemist", icon: "🎨" }
+      { name: "WebP Alchemist", desc: "Lossless image optimization", link: "/tools/webp-converter" },
+      { name: "Aspect Ratio", desc: "Proportional scaling calculator", link: "/tools/aspect-ratio-calculator" },
+      { name: "SVG Placeholder", desc: "Lightweight mockup vectors", link: "/tools/svg-placeholder-maker" },
+      { name: "Color Alchemist", desc: "HEX, RGB, and HSL conversion", link: "/tools/color-hex-alchemist" }
     ]
   },
   {
-    name: "Developer Utilities",
+    name: "Development",
     tools: [
-      { name: "JSON Alchemist", desc: "Format and clean JSON", link: "/tools/json-formatter", icon: "📋" },
-      { name: "Base64 Alchemist", desc: "Encode & decode strings", link: "/tools/base64-alchemist", icon: "🔐" },
-      { name: "Unix Timestamp", desc: "Epoch time converter", link: "/tools/unix-timestamp-converter", icon: "🕒" },
-      { name: "HTML Entities", desc: "Safe code escaping", link: "/tools/html-entity-encoder", icon: "📄" },
-      { name: "QR Forge", desc: "Generate permanent QR codes", link: "/tools/qr-code-generator", icon: "📱" }
+      { name: "JSON Alchemist", desc: "Validation and structural formatting", link: "/tools/json-formatter" },
+      { name: "Base64 Alchemist", desc: "Binary-to-text transformation", link: "/tools/base64-alchemist" },
+      { name: "Unix Timestamp", desc: "Epoch to human date conversion", link: "/tools/unix-timestamp-converter" },
+      { name: "HTML Entities", desc: "Character escaping for web code", link: "/tools/html-entity-encoder" },
+      { name: "QR Forge", desc: "Permanent, static QR generation", link: "/tools/qr-code-generator" }
     ]
   },
   {
     name: "Text & Data",
     tools: [
-      { name: "Case Transformer", desc: "Switch text casing instantly", link: "/tools/case-transformer", icon: "Aa" },
-      { name: "List Scrubber", desc: "Remove duplicates & sort", link: "/tools/list-scrubber", icon: "🧹" },
-      { name: "Whitespace Remover", desc: "Clean hidden clutter", link: "/tools/whitespace-remover", icon: "🚫" },
-      { name: "Lorem Ipsum", desc: "Gremlin-themed placeholder", link: "/tools/lorem-ipsum-generator", icon: "📝" },
-      { name: "Unit Alchemist", desc: "Universal measurements", link: "/tools/unit-converter", icon: "⚖️" },
-      { name: "Password Forge", desc: "Secure random keys", link: "/tools/password-forge", icon: "🛡️" }
+      { name: "Case Transformer", desc: "String casing and manipulation", link: "/tools/case-transformer" },
+      { name: "List Scrubber", desc: "De-duplication and sorting", link: "/tools/list-scrubber" },
+      { name: "Whitespace Scrubber", desc: "Hidden character removal", link: "/tools/whitespace-remover" },
+      { name: "Lorem Ipsum", desc: "Placeholder text generation", link: "/tools/lorem-ipsum-generator" },
+      { name: "Unit Alchemist", desc: "Universal measurement conversion", link: "/tools/unit-converter" },
+      { name: "Password Forge", desc: "Client-side secure key generation", link: "/tools/password-forge" }
     ]
   }
 ];
 ---
 
 <Layout 
-	title="The Heuheu: Fast, Private & Free Online Tools" 
-	description="The junk drawer of useful things. 15+ browser-based tools for developers, designers, and creators. No tracking, no accounts."
+	title="The Heuheu | Minimalist Utility Suite" 
+	description="A private collection of 15+ browser-based tools for developers and designers. Fast, secure, and local."
 >
-	<main class="max-w-6xl mx-auto px-4 py-12">
-		<div class="text-center mb-16">
-			<h1 class="text-5xl font-extrabold text-slate-900 tracking-tight mb-4">The Heuheu</h1>
-			<p class="text-xl text-slate-600 max-w-2xl mx-auto">
-				The Desk Gremlin's Junk Drawer of Useful Things. No accounts, no emails, and no tracking. Everything runs locally in your browser.
+	<main class="max-w-5xl mx-auto px-6 py-16 md:py-24">
+		<header class="mb-20 border-b border-slate-100 pb-12">
+			<h1 class="text-2xl font-semibold text-slate-900 tracking-tight">The Heuheu</h1>
+			<p class="text-slate-500 mt-3 text-sm max-w-xl leading-relaxed">
+				A private desk gremlin’s collection of essential utilities. No tracking, no accounts, and no server-side processing. All data stays in your browser.
 			</p>
-		</div>
+		</header>
 
-		<div class="space-y-16">
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-20">
 			{toolCategories.map(category => (
 				<section>
-					<h2 class="text-2xl font-bold text-slate-800 mb-8 flex items-center">
-						<span class="bg-indigo-600 w-2 h-8 rounded-full mr-4"></span>
+					<h2 class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-8 border-l-2 border-slate-200 pl-4">
 						{category.name}
 					</h2>
-					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+					<ul class="space-y-8">
 						{category.tools.map(tool => (
-							<a href={tool.link} class="group bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl hover:border-indigo-500 transition-all duration-300">
-								<div class="text-3xl mb-4 group-hover:scale-110 transition-transform duration-300">{tool.icon}</div>
-								<h3 class="text-lg font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">{tool.name}</h3>
-								<p class="text-slate-500 text-sm mt-1">{tool.desc}</p>
-							</a>
+							<li>
+								<a href={tool.link} class="group block">
+									<h3 class="text-sm font-medium text-slate-800 group-hover:text-black group-hover:underline underline-offset-4 decoration-slate-300 transition-all">
+										{tool.name}
+									</h3>
+									<p class="text-slate-400 text-xs mt-1.5 leading-relaxed group-hover:text-slate-500 transition-colors">
+										{tool.desc}
+									</p>
+								</a>
+							</li>
 						))}
-					</div>
+					</ul>
 				</section>
 			))}
 		</div>
 
-    <section class="mt-24 p-8 bg-slate-900 rounded-3xl text-white">
-      <div class="max-w-3xl">
-        <h2 class="text-3xl font-bold mb-4">Why use The Heuheu?</h2>
-        <div class="grid md:grid-cols-2 gap-8 mt-8">
-          <div>
-            <h3 class="text-indigo-400 font-bold mb-2 uppercase text-xs tracking-widest">Privacy First</h3>
-            <p class="text-slate-300 text-sm">Your data never leaves your computer. All processing happens locally in your browser.</p>
-          </div>
-          <div>
-            <h3 class="text-indigo-400 font-bold mb-2 uppercase text-xs tracking-widest">Zero Friction</h3>
-            <p class="text-slate-300 text-sm">No logins, no newsletters, and no cookies. Just the tools you need.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+		<footer class="mt-32 pt-12 border-t border-slate-50 text-slate-300">
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+				<div>
+					<h4 class="text-[10px] font-bold uppercase tracking-widest mb-3">Privacy</h4>
+					<p class="text-xs leading-relaxed">Zero data transmission. All logic is executed via client-side JavaScript.</p>
+				</div>
+				<div>
+					<h4 class="text-[10px] font-bold uppercase tracking-widest mb-3">Speed</h4>
+					<p class="text-xs leading-relaxed">Static architecture for near-instant load times across all global regions.</p>
+				</div>
+				<div>
+					<h4 class="text-[10px] font-bold uppercase tracking-widest mb-3">Open</h4>
+					<p class="text-xs leading-relaxed">A public utility for a cleaner, faster web experience.</p>
+				</div>
+			</div>
+		</footer>
 	</main>
 </Layout>
