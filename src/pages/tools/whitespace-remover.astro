@@ -1,0 +1,77 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+	title="Whitespace Remover: Clean & Trim Messy Text" 
+	description="Instantly remove extra spaces, tabs, and empty lines from your text. A fast, local utility for data cleaning and code minification."
+>
+	<div class="max-w-4xl mx-auto">
+		<div class="mb-8 text-center">
+			<h1 class="text-3xl font-bold text-slate-900">Whitespace Scrubber</h1>
+			<p class="mt-2 text-slate-600 font-medium text-lg">Purify your text by removing hidden clutter.</p>
+		</div>
+
+		<div class="grid grid-cols-1 gap-6">
+			<textarea 
+				id="text-input" 
+				rows="10" 
+				placeholder="Paste your messy text here..." 
+				class="w-full p-4 font-mono text-sm border rounded-xl shadow-sm focus:ring-2 focus:ring-indigo-500 outline-none border-slate-200 bg-white"
+			></textarea>
+			
+			<div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+				<button onclick="clean('all')" class="bg-indigo-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-indigo-700 transition-all text-sm">Remove All Spaces</button>
+				<button onclick="clean('extra')" class="bg-indigo-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-indigo-700 transition-all text-sm">Extra Spaces Only</button>
+				<button onclick="clean('lines')" class="bg-indigo-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-indigo-700 transition-all text-sm">Empty Lines</button>
+				<button onclick="clean('trim')" class="bg-indigo-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-indigo-700 transition-all text-sm">Trim Start/End</button>
+			</div>
+			
+			<div class="flex gap-4">
+				<button id="copy-btn" class="flex-1 bg-emerald-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-emerald-700 transition-all shadow-md">Copy Clean Text</button>
+				<button onclick="document.getElementById('text-input').value = ''" class="bg-slate-200 text-slate-700 px-6 py-3 rounded-lg font-bold hover:bg-slate-300 transition-all">Clear</button>
+			</div>
+		</div>
+
+		<article class="mt-20 prose prose-slate max-w-none border-t border-slate-100 pt-12 text-slate-600">
+			<h2 class="text-2xl font-bold text-slate-900">The Problem with Hidden Whitespace</h2>
+			<p class="mt-4 leading-relaxed">
+				Whitespace isn't just "empty space." In the world of data and programming, extra tabs, carriage returns, and trailing spaces can cause significant issues. They can break string comparisons in code, cause errors in CSV imports, and increase the file size of your web assets.
+			</p>
+
+			<h3 class="text-xl font-bold text-slate-900 mt-10">Cleaning Modes Explained</h3>
+			<ul class="space-y-4 mt-6">
+				<li><strong>Extra Spaces:</strong> Reduces multiple consecutive spaces into a single space, keeping your prose readable but tidy.</li>
+				<li><strong>Empty Lines:</strong> Strips out completely blank lines, which is perfect for condensing long lists.</li>
+				<li><strong>Remove All:</strong> Eliminates every single space and tab. This is often used for basic code minification or creating compact data strings.</li>
+			</ul>
+
+			<h3 class="text-xl font-bold text-slate-900 mt-10">Privacy-First Data Cleaning</h3>
+			<p class="mt-4 leading-relaxed">
+				Many online text cleaners store your input for analysis. Because the Heuheu is a privacy-first "Junk Drawer," our Whitespace Scrubber runs entirely in your local browser environment. Your sensitive documents, emails, or code snippets never leave your device, providing you with absolute data security.
+			</p>
+		</article>
+	</div>
+
+	<script is:inline>
+		const input = document.getElementById('text-input');
+
+		function clean(type) {
+			let val = input.value;
+			switch(type) {
+				case 'all': input.value = val.replace(/\s+/g, ''); break;
+				case 'extra': input.value = val.replace(/[ ]+/g, ' '); break;
+				case 'lines': input.value = val.replace(/^\s*[\r\n]/gm, ''); break;
+				case 'trim': input.value = val.trim().split('\n').map(line => line.trim()).join('\n'); break;
+			}
+		}
+
+		document.getElementById('copy-btn').addEventListener('click', () => {
+			input.select();
+			document.execCommand('copy');
+			const btn = document.getElementById('copy-btn');
+			btn.innerText = "Copied!";
+			setTimeout(() => { btn.innerText = "Copy Clean Text"; }, 2000);
+		});
+	</script>
+</Layout>
