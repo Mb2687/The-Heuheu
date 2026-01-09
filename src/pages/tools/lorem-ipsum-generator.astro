@@ -1,0 +1,104 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+	title="Lorem Ipsum Generator: Placeholder Text for Designers" 
+	description="Generate standard or Gremlin-themed placeholder text for your design projects. Fast, customizable, and browser-based."
+>
+	<div class="max-w-4xl mx-auto">
+		<div class="mb-8 text-center">
+			<h1 class="text-3xl font-bold text-slate-900">Lorem Ipsum Generator</h1>
+			<p class="mt-2 text-slate-600 font-medium text-lg">Summon placeholder text for your digital layouts.</p>
+		</div>
+
+		<div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm max-w-2xl mx-auto">
+			<div class="space-y-6">
+				<div class="grid grid-cols-2 gap-4">
+					<div>
+						<label class="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">Paragraphs</label>
+						<input type="number" id="para-count" min="1" max="10" value="3" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none border-slate-200" />
+					</div>
+					<div>
+						<label class="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">Theme</label>
+						<select id="theme-select" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none border-slate-200 bg-white text-sm">
+							<option value="classic">Classic Latin</option>
+							<option value="gremlin">Heuheu Gremlin</option>
+						</select>
+					</div>
+				</div>
+
+				<button id="generate-btn" class="w-full bg-indigo-600 text-white py-3 rounded-lg font-bold hover:bg-indigo-700 transition-all shadow-md">
+					Generate Text
+				</button>
+
+				<div class="relative">
+					<div id="output-text" class="p-6 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 text-sm leading-relaxed space-y-4 min-h-[200px]">
+						</div>
+					<button id="copy-btn" class="absolute top-2 right-2 text-xs bg-white text-slate-500 px-2 py-1 rounded border border-slate-200 hover:bg-indigo-600 hover:text-white transition-all">Copy</button>
+				</div>
+			</div>
+		</div>
+
+		<article class="mt-20 prose prose-slate max-w-none border-t border-slate-100 pt-12 text-slate-600">
+			<h2 class="text-2xl font-bold text-slate-900">The Purpose of Placeholder Text</h2>
+			<p class="mt-4 leading-relaxed">
+				In design and publishing, Lorem Ipsum is a dummy text used to demonstrate the visual form of a document or a typeface without relying on meaningful content. It allows designers to focus on graphic elements such as typography, font, and layout rather than the actual message.
+			</p>
+
+			<h3 class="text-xl font-bold text-slate-900 mt-10">Why "Heuheu Gremlin" Mode?</h3>
+			<p class="mt-4 leading-relaxed">
+				Standard Latin placeholder text can sometimes feel repetitive. Our unique "Gremlin" theme injects personality into your wireframes, using vocabulary inspired by our digital junk drawer canon. It’s a great way to add a bit of character to your mockups while maintaining the same structural benefits as traditional Lorem Ipsum.
+			</p>
+
+			<h3 class="text-xl font-bold text-slate-900 mt-10">Private and Fast Generation</h3>
+			<p class="mt-4 leading-relaxed">
+				Like all tools in the Heuheu's drawer, this generator runs locally. We do not track the designs you are working on or the amount of text you generate. Everything stays within your browser, ensuring a fast, private, and zero-distraction workflow.
+			</p>
+		</article>
+	</div>
+
+	<script is:inline>
+		const classicWords = ["lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit", "sed", "do", "eiusmod", "tempor", "incididunt", "ut", "labore", "et", "dolore", "magna", "aliqua", "ut", "enim", "ad", "minim", "veniam", "quis", "nostrud", "exercitation", "ullamco", "laboris", "nisi", "ut", "aliquip", "ex", "ea", "commodo", "consequat"];
+		const gremlinWords = ["heuheu", "gremlin", "drawer", "junk", "alchemist", "transmute", "beautify", "binary", "hex", "forge", "gear", "click", "static", "pixel", "cache", "token", "script", "style", "deploy", "build", "cloud", "serverless", "browser", "local"];
+
+		const output = document.getElementById('output-text');
+		const paraInput = document.getElementById('para-count');
+		const themeSelect = document.getElementById('theme-select');
+		const genBtn = document.getElementById('generate-btn');
+		const copyBtn = document.getElementById('copy-btn');
+
+		function generatePara(words) {
+			let p = "";
+			const len = Math.floor(Math.random() * 30) + 40;
+			for (let i = 0; i < len; i++) {
+				let word = words[Math.floor(Math.random() * words.length)];
+				if (i === 0) word = word.charAt(0).toUpperCase() + word.slice(1);
+				p += word + (i === len - 1 ? "." : " ");
+			}
+			return `<p>${p}</p>`;
+		}
+
+		function update() {
+			const count = paraInput.value;
+			const theme = themeSelect.value;
+			const words = theme === 'classic' ? classicWords : gremlinWords;
+			let html = "";
+			for (let i = 0; i < count; i++) {
+				html += generatePara(words);
+			}
+			output.innerHTML = html;
+		}
+
+		genBtn.addEventListener('click', update);
+		copyBtn.addEventListener('click', () => {
+			const text = output.innerText;
+			navigator.clipboard.writeText(text);
+			copyBtn.innerText = "Copied!";
+			setTimeout(() => copyBtn.innerText = "Copy", 2000);
+		});
+
+		// Initial load
+		update();
+	</script>
+</Layout>
