@@ -1,12 +1,12 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import MainLayout from '../../layouts/MainLayout.astro';
 ---
 
-<Layout 
+<MainLayout 
 	title="WebP Alchemist: Instant Image Converter" 
 	description="Convert JPG, PNG, and GIF to WebP instantly. Fast, private, browser-based image optimization for better SEO."
 >
-	<div class="max-w-3xl mx-auto">
+	<div>
 		<div class="mb-10 text-center">
 			<h1 class="text-3xl font-bold text-slate-900">WebP Alchemist</h1>
 			<p class="mt-2 text-slate-600 font-medium">Transmute your heavy images into lightweight WebP gold.</p>
@@ -82,4 +82,4 @@ import Layout from '../../layouts/Layout.astro';
 			reader.readAsDataURL(file);
 		}
 	</script>
-</Layout>
+</MainLayout>

@@ -1,12 +1,12 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import MainLayout from '../../layouts/MainLayout.astro';
 ---
 
-<Layout 
+<MainLayout 
 	title="Universal Alchemist: Fast Unit Converter" 
 	description="Instant conversions for length, weight, and temperature. Private, browser-based tool for daily utility."
 >
-	<div class="max-w-3xl mx-auto">
+	<div>
 		<div class="mb-10 text-center">
 			<h1 class="text-3xl font-bold text-slate-900">Universal Alchemist</h1>
 			<p class="mt-2 text-slate-600 font-medium">Standardize your measurements with gremlin-fast precision.</p>
@@ -66,4 +66,4 @@ import Layout from '../../layouts/Layout.astro';
 		input.addEventListener('input', convert);
 		from.addEventListener('change', convert);
 	</script>
-</Layout>
+</MainLayout>

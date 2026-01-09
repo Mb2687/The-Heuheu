@@ -1,12 +1,12 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import MainLayout from '../../layouts/MainLayout.astro';
 ---
 
-<Layout 
+<MainLayout 
 	title="Unix Timestamp Converter: Human Date to Epoch" 
 	description="Convert Unix timestamps to human-readable dates and back. A fast, local, and private developer utility."
 >
-	<div class="max-w-4xl mx-auto">
+	<div>
 		<div class="mb-8 text-center">
 			<h1 class="text-3xl font-bold text-slate-900">Unix Timestamp Alchemist</h1>
 			<p class="mt-2 text-slate-600 font-medium text-lg">Synchronize human time with the epoch clock.</p>
@@ -81,4 +81,4 @@ import Layout from '../../layouts/Layout.astro';
 			dateResult.innerText = isNaN(ts) ? "Invalid date" : ts;
 		});
 	</script>
-</Layout>
+</MainLayout>

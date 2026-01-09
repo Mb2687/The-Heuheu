@@ -1,12 +1,12 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import MainLayout from '../../layouts/MainLayout.astro';
 ---
 
-<Layout 
+<MainLayout 
 	title="Base64 Alchemist: Encode & Decode Strings" 
 	description="Securely encode or decode text to Base64 format locally in your browser. Perfect for developers and data privacy."
 >
-	<div class="max-w-4xl mx-auto">
+	<div>
 		<div class="mb-8 text-center">
 			<h1 class="text-3xl font-bold text-slate-900">Base64 Alchemist</h1>
 			<p class="mt-2 text-slate-600 font-medium text-lg">Transmute plain text into secure Base64 strings and back.</p>
@@ -104,4 +104,4 @@ import Layout from '../../layouts/Layout.astro';
 			error.classList.add('hidden');
 		});
 	</script>
-</Layout>
+</MainLayout>

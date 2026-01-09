@@ -1,12 +1,12 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import MainLayout from '../../layouts/MainLayout.astro';
 ---
 
-<Layout 
+<MainLayout 
 	title="Whitespace Remover: Clean & Trim Messy Text" 
 	description="Instantly remove extra spaces, tabs, and empty lines from your text. A fast, local utility for data cleaning and code minification."
 >
-	<div class="max-w-4xl mx-auto">
+	<div>
 		<div class="mb-8 text-center">
 			<h1 class="text-3xl font-bold text-slate-900">Whitespace Scrubber</h1>
 			<p class="mt-2 text-slate-600 font-medium text-lg">Purify your text by removing hidden clutter.</p>
@@ -74,4 +74,4 @@ import Layout from '../../layouts/Layout.astro';
 			setTimeout(() => { btn.innerText = "Copy Clean Text"; }, 2000);
 		});
 	</script>
-</Layout>
+</MainLayout>

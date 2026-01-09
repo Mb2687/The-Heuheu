@@ -1,12 +1,12 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import MainLayout from '../../layouts/MainLayout.astro';
 ---
 
-<Layout 
+<MainLayout 
 	title="Case Transformer: Uppercase, Lowercase & More" 
 	description="Instantly switch text between UPPERCASE, lowercase, Title Case, and camelCase. A fast, browser-based text utility for everyone."
 >
-	<div class="max-w-4xl mx-auto">
+	<div>
 		<div class="mb-8 text-center">
 			<h1 class="text-3xl font-bold text-slate-900">Case Transformer</h1>
 			<p class="mt-2 text-slate-600 font-medium text-lg">Shift your text style instantly without retyping a single letter.</p>
@@ -76,4 +76,4 @@ import Layout from '../../layouts/Layout.astro';
 			setTimeout(() => { document.getElementById('copy-btn').innerText = originalText; }, 2000);
 		});
 	</script>
-</Layout>
+</MainLayout>

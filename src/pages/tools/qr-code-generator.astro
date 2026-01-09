@@ -1,12 +1,12 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import MainLayout from '../../layouts/MainLayout.astro';
 ---
 
-<Layout 
+<MainLayout 
 	title="QR Code Generator: Private & Permanent Codes" 
 	description="Create high-quality QR codes for URLs or text instantly. No accounts, no expiration, and 100% private browser-based generation."
 >
-	<div class="max-w-4xl mx-auto">
+	<div>
 		<div class="mb-8 text-center">
 			<h1 class="text-3xl font-bold text-slate-900">QR Forge</h1>
 			<p class="mt-2 text-slate-600 font-medium text-lg">Generate permanent, track-free QR codes instantly.</p>
@@ -58,7 +58,7 @@ import Layout from '../../layouts/Layout.astro';
 		</article>
 	</div>
 
-	<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+	<script is:inline src="/assets/qrcode.min.js"></script>
 	<script is:inline>
 		const input = document.getElementById('qr-input');
 		const container = document.getElementById('qrcode');
@@ -90,4 +90,4 @@ import Layout from '../../layouts/Layout.astro';
 			}
 		});
 	</script>
-</Layout>
+</MainLayout>
