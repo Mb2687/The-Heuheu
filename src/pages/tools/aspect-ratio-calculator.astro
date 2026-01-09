@@ -1,0 +1,105 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+	title="Aspect Ratio Calculator: Perfect Image & Video Scaling" 
+	description="Calculate proportional dimensions for images and videos. Great for social media, responsive web design, and video editing."
+>
+	<div class="max-w-4xl mx-auto">
+		<div class="mb-8 text-center">
+			<h1 class="text-3xl font-bold text-slate-900">Aspect Ratio Alchemist</h1>
+			<p class="mt-2 text-slate-600 font-medium text-lg">Scale your dimensions while keeping the proportions perfect.</p>
+		</div>
+
+		<div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+				<div class="space-y-4">
+					<h2 class="text-sm font-bold text-slate-700 uppercase tracking-widest">Original Size</h2>
+					<div class="flex items-center space-x-4">
+						<div class="flex-1">
+							<label class="block text-xs text-slate-500 mb-1">Width (W1)</label>
+							<input type="number" id="w1" value="1920" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none border-slate-200" />
+						</div>
+						<span class="text-slate-400 mt-5">×</span>
+						<div class="flex-1">
+							<label class="block text-xs text-slate-500 mb-1">Height (H1)</label>
+							<input type="number" id="h1" value="1080" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none border-slate-200" />
+						</div>
+					</div>
+					<div class="pt-2">
+						<p class="text-sm text-slate-500">Current Ratio: <span id="ratio-display" class="font-bold text-indigo-600">16:9</span></p>
+					</div>
+				</div>
+
+				<div class="space-y-4">
+					<h2 class="text-sm font-bold text-slate-700 uppercase tracking-widest">New Size</h2>
+					<div class="flex items-center space-x-4">
+						<div class="flex-1">
+							<label class="block text-xs text-slate-500 mb-1">Width (W2)</label>
+							<input type="number" id="w2" placeholder="Scale..." class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none border-slate-200 bg-indigo-50" />
+						</div>
+						<span class="text-slate-400 mt-5">×</span>
+						<div class="flex-1">
+							<label class="block text-xs text-slate-500 mb-1">Height (H2)</label>
+							<input type="number" id="h2" placeholder="Scale..." class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none border-slate-200 bg-indigo-50" />
+						</div>
+					</div>
+					<p class="text-xs text-slate-400 italic">Changing one value updates the other automatically.</p>
+				</div>
+			</div>
+		</div>
+
+		<article class="mt-20 prose prose-slate max-w-none border-t border-slate-100 pt-12 text-slate-600">
+			<h2 class="text-2xl font-bold text-slate-900">What is Aspect Ratio?</h2>
+			<p class="mt-4 leading-relaxed">
+				Aspect ratio describes the proportional relationship between a shape's width and its height. It is commonly expressed as two numbers separated by a colon, such as 16:9. For digital creators, maintaining this ratio is vital to prevent "stretching" or "squashing" images when resizing them for different platforms.
+			</p>
+
+			<h3 class="text-xl font-bold text-slate-900 mt-10">Common Ratios for 2026</h3>
+			<ul class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 list-none pl-0">
+				<li class="bg-slate-50 p-4 rounded-xl border border-slate-100"><strong>16:9 (Widescreen):</strong> Standard for YouTube, TV, and presentation slides.</li>
+				<li class="bg-slate-50 p-4 rounded-xl border border-slate-100"><strong>9:16 (Vertical):</strong> The "TikTok" or "Reels" ratio. Optimized for mobile viewing.</li>
+				<li class="bg-slate-50 p-4 rounded-xl border border-slate-100"><strong>1:1 (Square):</strong> Traditional Instagram feed posts and profile pictures.</li>
+				<li class="bg-slate-50 p-4 rounded-xl border border-slate-100"><strong>4:5 (Portrait):</strong> Popular for high-engagement Instagram and LinkedIn posts.</li>
+			</ul>
+
+			<h3 class="text-xl font-bold text-slate-900 mt-10">Zero Data, Maximum Precision</h3>
+			<p class="mt-4 leading-relaxed">
+				While many calculators require you to upload your images, the Aspect Ratio Alchemist works purely with mathematics. By entering your dimensions, our local script solves for the missing value instantly. Your project details and image dimensions remain strictly on your machine, ensuring complete privacy for your creative workflow.
+			</p>
+		</article>
+	</div>
+
+	<script is:inline>
+		const w1 = document.getElementById('w1');
+		const h1 = document.getElementById('h1');
+		const w2 = document.getElementById('w2');
+		const h2 = document.getElementById('h2');
+		const ratioDisplay = document.getElementById('ratio-display');
+
+		function gcd(a, b) {
+			return b ? gcd(b, a % b) : a;
+		}
+
+		function updateRatio() {
+			const common = gcd(w1.value, h1.value);
+			ratioDisplay.innerText = `${w1.value / common}:${h1.value / common}`;
+		}
+
+		w1.addEventListener('input', () => { updateRatio(); w2.value = ''; h2.value = ''; });
+		h1.addEventListener('input', () => { updateRatio(); w2.value = ''; h2.value = ''; });
+
+		w2.addEventListener('input', () => {
+			if (w1.value && h1.value) {
+				h2.value = Math.round((w2.value * h1.value) / w1.value);
+			}
+		});
+
+		h2.addEventListener('input', () => {
+			if (w1.value && h1.value) {
+				w2.value = Math.round((h2.value * w1.value) / h1.value);
+			}
+		});
+	</script>
+</Layout>
