@@ -24,6 +24,8 @@ import MainLayout from '../../layouts/MainLayout.astro';
 						<select id="theme-select" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none border-slate-200 bg-white text-sm">
 							<option value="classic">Classic Latin</option>
 							<option value="gremlin">Heuheu Gremlin</option>
+							<option value="creature">Creature Speak</option>
+							<option value="nonsense">Nonsense Speak</option>
 						</select>
 					</div>
 				</div>
@@ -46,9 +48,9 @@ import MainLayout from '../../layouts/MainLayout.astro';
 				In design and publishing, Lorem Ipsum is a dummy text used to demonstrate the visual form of a document or a typeface without relying on meaningful content. It allows designers to focus on graphic elements such as typography, font, and layout rather than the actual message.
 			</p>
 
-			<h3 class="text-xl font-bold text-slate-900 mt-10">Why "Heuheu Gremlin" Mode?</h3>
+			<h3 class="text-xl font-bold text-slate-900 mt-10">Why Use a Themed Generator?</h3>
 			<p class="mt-4 leading-relaxed">
-				Standard Latin placeholder text can sometimes feel repetitive. Our unique "Gremlin" theme injects personality into your wireframes, using vocabulary inspired by our digital junk drawer canon. It’s a great way to add a bit of character to your mockups while maintaining the same structural benefits as traditional Lorem Ipsum.
+				Standard Latin placeholder text can sometimes feel repetitive. Our unique themes inject personality into your wireframes. The Heuheu Gremlin theme speaks in its native tongue, while other themes provide fun, nonsensical alternatives. It’s a great way to add a bit of character to your mockups while maintaining the same structural benefits as traditional Lorem Ipsum.
 			</p>
 
 			<h3 class="text-xl font-bold text-slate-900 mt-10">Private and Fast Generation</h3>
@@ -59,8 +61,12 @@ import MainLayout from '../../layouts/MainLayout.astro';
 	</div>
 
 	<script is:inline>
-		const classicWords = ["lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit", "sed", "do", "eiusmod", "tempor", "incididunt", "ut", "labore", "et", "dolore", "magna", "aliqua", "ut", "enim", "ad", "minim", "veniam", "quis", "nostrud", "exercitation", "ullamco", "laboris", "nisi", "ut", "aliquip", "ex", "ea", "commodo", "consequat"];
-		const gremlinWords = ["heuheu", "gremlin", "drawer", "junk", "alchemist", "transmute", "beautify", "binary", "hex", "forge", "gear", "click", "static", "pixel", "cache", "token", "script", "style", "deploy", "build", "cloud", "serverless", "browser", "local"];
+		const wordLists = {
+			classic: ["lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit", "sed", "do", "eiusmod", "tempor", "incididunt", "ut", "labore", "et", "dolore", "magna", "aliqua", "ut", "enim", "ad", "minim", "veniam", "quis", "nostrud", "exercitation", "ullamco", "laboris", "nisi", "ut", "aliquip", "ex", "ea", "commodo", "consequat"],
+			gremlin: ["gremlin", "drawer", "junk", "alchemist", "transmute", "beautify", "binary", "hex", "forge", "gear", "click", "static", "pixel", "cache", "token", "script", "style", "deploy", "build", "cloud", "serverless", "browser", "local"],
+			creature: ["caca", "bright", "light", "water", "no", "water", "food", "after", "midnight", "uh", "oh", "yum", "love", "you", "bye", "bye"],
+			nonsense: ["bello", "poopaye", "gelato", "para", "tu", "banana", "bee", "do", "bee", "do", "hana", "dul", "sae", "kanpai", "pwede", "na", "la", "boda", "tank", "yu", "bottom"]
+		};
 
 		const output = document.getElementById('output-text');
 		const paraInput = document.getElementById('para-count');
@@ -68,13 +74,23 @@ import MainLayout from '../../layouts/MainLayout.astro';
 		const genBtn = document.getElementById('generate-btn');
 		const copyBtn = document.getElementById('copy-btn');
 
-		function generatePara(words) {
+		function generatePara(words, theme) {
 			let p = "";
-			const len = Math.floor(Math.random() * 30) + 40;
-			for (let i = 0; i < len; i++) {
-				let word = words[Math.floor(Math.random() * words.length)];
-				if (i === 0) word = word.charAt(0).toUpperCase() + word.slice(1);
-				p += word + (i === len - 1 ? "." : " ");
+			if (theme === 'gremlin') {
+				const len = Math.floor(Math.random() * 15) + 10;
+				const sentenceWords = [];
+				for (let i = 0; i < len; i++) {
+					sentenceWords.push(words[Math.floor(Math.random() * words.length)]);
+				}
+				p = sentenceWords.join(" heuheu ");
+				p = p.charAt(0).toUpperCase() + p.slice(1) + ".";
+			} else {
+				const len = Math.floor(Math.random() * 30) + 40;
+				for (let i = 0; i < len; i++) {
+					let word = words[Math.floor(Math.random() * words.length)];
+					if (i === 0) word = word.charAt(0).toUpperCase() + word.slice(1);
+					p += word + (i === len - 1 ? "." : " ");
+				}
 			}
 			return `<p>${p}</p>`;
 		}
@@ -82,10 +98,10 @@ import MainLayout from '../../layouts/MainLayout.astro';
 		function update() {
 			const count = paraInput.value;
 			const theme = themeSelect.value;
-			const words = theme === 'classic' ? classicWords : gremlinWords;
+			const words = wordLists[theme];
 			let html = "";
 			for (let i = 0; i < count; i++) {
-				html += generatePara(words);
+				html += generatePara(words, theme);
 			}
 			output.innerHTML = html;
 		}

@@ -1,0 +1,27 @@
+---
+export interface Props {
+  link: string;
+  name: string;
+  desc: string;
+  icon: string;
+}
+
+const { link, name, desc, icon } = Astro.props;
+---
+
+<li class="group">
+  <a 
+    href={link} 
+    class="flex items-center p-4 bg-white/80 backdrop-blur-md rounded-xl border border-slate-200/50 shadow-sm hover:shadow-md transition-shadow"
+  >
+    <div class="text-indigo-600 mr-4" set:html={icon} />
+    <div>
+      <h3 class="text-base font-medium text-slate-900">
+        {name}
+      </h3>
+      <p class="text-slate-500 text-sm mt-1 leading-relaxed">
+        {desc}
+      </p>
+    </div>
+  </a>
+</li>

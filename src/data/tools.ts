@@ -18,31 +18,31 @@ export const toolCategories = [
   {
     name: "Design & Media",
     tools: [
-      { name: "WebP Alchemist", desc: "Lossless image optimization", link: "/tools/webp-converter", icon: icons.image },
-      { name: "Aspect Ratio", desc: "Proportional scaling calculator", link: "/tools/aspect-ratio-calculator", icon: icons.crop },
-      { name: "SVG Placeholder", desc: "Lightweight mockup vectors", link: "/tools/svg-placeholder-maker", icon: icons.code },
-      { name: "Color Alchemist", desc: "HEX, RGB, and HSL conversion", link: "/tools/color-hex-alchemist", icon: icons.color }
+      { name: "WebP Alchemist", desc: "Client-side PNG/JPG to WebP image conversion with quality control.", link: "/tools/webp-converter", icon: icons.image },
+      { name: "Aspect Ratio", desc: "Calculate dimensions for resizing images or elements while maintaining aspect ratio.", link: "/tools/aspect-ratio-calculator", icon: icons.crop },
+      { name: "SVG Placeholder", desc: "Generate customizable, lightweight SVG placeholder images for mockups.", link: "/tools/svg-placeholder-maker", icon: icons.code },
+      { name: "Color Alchemist", desc: "Convert between HEX, RGB, and HSL color models for CSS and other applications.", link: "/tools/color-hex-alchemist", icon: icons.color }
     ]
   },
   {
     name: "Development",
     tools: [
-      { name: "JSON Alchemist", desc: "Validation and structural formatting", link: "/tools/json-formatter", icon: icons.code, featured: true },
-      { name: "Base64 Alchemist", desc: "Binary-to-text transformation", link: "/tools/base64-alchemist", icon: icons.text },
-      { name: "Unix Timestamp", desc: "Epoch to human date conversion", link: "/tools/unix-timestamp-converter", icon: icons.clock },
-      { name: "HTML Entities", desc: "Character escaping for web code", link: "/tools/html-entity-encoder", icon: icons.code },
-      { name: "QR Forge", desc: "Permanent, static QR generation", link: "/tools/qr-code-generator", icon: icons.qr }
+      { name: "JSON Alchemist", desc: "Parse, validate, and pretty-print JSON data structures for debugging and development.", link: "/tools/json-formatter", icon: icons.code, featured: true },
+      { name: "Base64 Alchemist", desc: "Encode and decode strings or files to/from Base64 for data transfer.", link: "/tools/base64-alchemist", icon: icons.text },
+      { name: "Unix Timestamp", desc: "Convert Unix epoch timestamps to and from human-readable UTC/local dates.", link: "/tools/unix-timestamp-converter", icon: icons.clock },
+      { name: "HTML Entities", desc: "Encode or decode special characters to their corresponding HTML entities.", link: "/tools/html-entity-encoder", icon: icons.code },
+      { name: "QR Forge", desc: "Generate static, high-redundancy QR codes from any text or URL.", link: "/tools/qr-code-generator", icon: icons.qr }
     ]
   },
   {
     name: "Text & Data",
     tools: [
-      { name: "Case Transformer", desc: "String casing and manipulation", link: "/tools/case-transformer", icon: icons.arrows },
-      { name: "List Scrubber", desc: "De-duplication and sorting", link: "/tools/list-scrubber", icon: icons.list },
-      { name: "Whitespace Scrubber", desc: "Hidden character removal", link: "/tools/whitespace-remover", icon: icons.sparkle },
-      { name: "Lorem Ipsum", desc: "Placeholder text generation", link: "/tools/lorem-ipsum-generator", icon: icons.document },
-      { name: "Unit Alchemist", desc: "Universal measurement conversion", link: "/tools/unit-converter", icon: icons.scale },
-      { name: "Password Forge", desc: "Client-side secure key generation", link: "/tools/password-forge", icon: icons.lock }
+      { name: "Case Transformer", desc: "Transform strings between camelCase, PascalCase, snake_case, and kebab-case.", link: "/tools/case-transformer", icon: icons.arrows },
+      { name: "List Scrubber", desc: "Perform set operations like deduplication, sorting, and filtering on text lists.", link: "/tools/list-scrubber", icon: icons.list },
+      { name: "Whitespace Scrubber", desc: "Remove or identify hidden whitespace characters and trim strings.", link: "/tools/whitespace-remover", icon: icons.sparkle },
+      { name: "Lorem Ipsum", desc: "Generate paragraphs, sentences, or words of placeholder text for UI mockups.", link: "/tools/lorem-ipsum-generator", icon: icons.document },
+      { name: "Unit Alchemist", desc: "Convert between various metric and imperial units of measurement.", link: "/tools/unit-converter", icon: icons.scale },
+      { name: "Password Forge", desc: "Generate strong, cryptographically-random passwords with customizable rules.", link: "/tools/password-forge", icon: icons.lock }
     ]
   }
 ];

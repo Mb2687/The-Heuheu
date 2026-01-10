@@ -1,7 +1,7 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import { toolCategories } from '../data/tools';
-import ToolCard from '../components/ToolCard.astro';
+import ToolListItem from '../components/ToolListItem.astro';
 import Hero from '../components/Hero.astro';
 ---
 
@@ -9,24 +9,60 @@ import Hero from '../components/Hero.astro';
 	title="The Heuheu | Minimalist Utility Suite" 
 	description="A private collection of 15+ browser-based tools for developers and designers. Fast, secure, and local."
 >
-	<Hero />
-	<div class="space-y-20">
-		{toolCategories.map(category => (
-			<section>
-				<h2 class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-8 border-l-2 border-indigo-600/30 pl-4">
-					{category.name}
-				</h2>
-				<ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-					{category.tools.map(tool => (
-						<ToolCard 
-							name={tool.name} 
-							desc={tool.desc} 
-							link={tool.link}
-							icon={tool.icon}
-						/>
-					))}
-				</ul>
-			</section>
-		))}
+	<div class="lg:grid lg:grid-cols-3 lg:gap-8">
+		<header class="lg:col-span-1 lg:sticky lg:top-24">
+			<Hero />
+		</header>
+		<div class="lg:col-span-2 space-y-8">
+			{toolCategories.map((category, index) => (
+				<section>
+					<button class="flex items-center justify-between w-full text-left accordion-header" aria-expanded="false">
+						<h2 class="text-xs font-bold text-slate-400 uppercase tracking-[0.2em] border-l-2 border-indigo-600/30 pl-4">
+							{category.name}
+						</h2>
+						<span class="icon-container">
+							<svg class="w-4 h-4 icon-plus" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+							</svg>
+							<svg class="w-4 h-4 icon-minus hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
+							</svg>
+						</span>
+					</button>
+					<div class="accordion-content hidden pt-6">
+						<ul class="space-y-4">
+							{category.tools.map(tool => (
+								<ToolListItem 
+									name={tool.name} 
+									desc={tool.desc} 
+									link={tool.link}
+									icon={tool.icon}
+								/>
+							))}
+						</ul>
+					</div>
+				</section>
+			))}
+		</div>
 	</div>
 </MainLayout>
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+		accordionHeaders.forEach(header => {
+			header.addEventListener('click', () => {
+				const content = header.nextElementSibling;
+				const isExpanded = header.getAttribute('aria-expanded') === 'true';
+
+				header.setAttribute('aria-expanded', String(!isExpanded));
+				content.classList.toggle('hidden');
+				
+				const iconContainer = header.querySelector('.icon-container');
+				iconContainer.querySelector('.icon-plus').classList.toggle('hidden');
+				iconContainer.querySelector('.icon-minus').classList.toggle('hidden');
+			});
+		});
+	});
+</script>
